@@ -21,14 +21,13 @@ try:
 except ImportError:
     sys.exit("You need UserAgent. run 'pip install fake-useragent'")
 
-parser = argparse.ArgumentParser(description='Fetches random Kattis Questions')
-parser.add_argument('--id', type=str, default='_NONE_', help='id of problem to fetch')
-parser.add_argument('--hint', type=bool, default=False, help='includes hint from Steve Halim.')
+parser = argparse.ArgumentParser(description='Fetches random Kattis Problems')
+parser.add_argument('--id', type=str, help='id of problem to fetch')
 args = parser.parse_args()
 qid = args.id
 hint = args.hint
 
-if qid == '_NONE_':
+if qid == None:
     qid = input('Enter ID: ')
 
 PROBLEMS_PATH = './problems/'
