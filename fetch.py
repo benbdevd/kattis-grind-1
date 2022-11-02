@@ -14,7 +14,7 @@ except ImportError:
 try:
     from bs4 import BeautifulSoup
 except ImportError:
-    sys.exit("You need BeautifulSoup. run 'pip install bs4'")
+    sys.exit("You need BeautifulSoup. run 'pip install beautifulsoup4'")
 
 try:
     from fake_useragent import UserAgent
