@@ -1,5 +1,5 @@
 # Kattis Grind
-A small easy-to-use package of Python 3 scripts which can help speed up the process for competitive programming on [Kattis](https://open.kattis.com). The scripts will download a local copy of the question (html file), and can automate testing inputs / outputs.
+A small easy-to-use package of Python 3 scripts which can help speed up the process for competitive programming on [Kattis](https://open.kattis.com). The scripts will download a local copy of the question (html file), and can automate testing inputs and outputs.
 
 # Requirements
 Kattis Grind uses Python 3. To check if you have it:
@@ -7,47 +7,38 @@ Kattis Grind uses Python 3. To check if you have it:
 foo@bar:~$ python3 --version
 Python 3.7.3
 ```
+
 If you don't have Python 3, you can install it from the [Python Website](https://www.python.org/downloads/).
 
-The Kattis Grind setup requires two modules. To install them:
+The Kattis Grind setup requires requests, beautifulsoup4, and fake-useragent. To install them, execute
 ```console
-foo@bar:~$ pip3 install bs4
-foo@bar:~$ pip3 install fake-useragent
-```
-# How do I use it?
-## Fetch a question!
-Simple! If you wanted to fetch a question, you can simply run
-```console
-foo@bar:~/kattis-grind$ ./fetch.py
-Enter ID:
-```
-If you prefer to use command line arguments instead, you can! For example, if I wanted to get question 'hello':
-```console
-foo@bar:~/kattis-grind$ ./fetch.py --id hello
+foo@bar:~$ pip3 install -r requirements.txt
 ```
 
-## Test your solution!
-The useful feature for Kattis Grind is that you can easily test your solutions! To do so:
+# How do I use it?
+## Fetch a Question!
 ```console
-foo@bar:~/kattis-grind$ ./test.py
-Enter ID:
+foo@bar:~/kattis-grind$ ./fetch.py hello
 ```
-Similarly to fetching a question, you can pass in an optional ID argument! Using 'hello' as an example again:
+
+## Test Your Solution!
 ```console
-foo@bar:~/kattis-grind$ ./test.py --id hello
+foo@bar:~/kattis-grind$ ./test.py hello
 ```
-## Generating random questions!
-The best feature of this program is that you can fetch random questions from Kattis too! If I was interested in five questions between a range of 1.4 to 1.6, I can run the script like this:
+
+## Fetch Random Questions!
 ```console
 foo@bar:~/kattis-grind$ ./rand.py
+How many problems: 5
 Enter lower bound: 1.4
 Enter upper bound: 1.6
-How many questions: 5
 ```
-It's as simple as that! But as you may have guessed, there are optional command line arguments for these too! Although they're less useful, you can use them like this:
+
+There are optional command line arguments
 ```console
-foo@bar:~/kattis-grind$ ./rand.py --lobound 1.4 --upbound 1.6 --qamount 5
+foo@bar:~/kattis-grind$ ./rand.py -n 5 -l 1.4 -u 1.6
 ```
+
 Depending on how many questions you want, and what range they're between, this operation *may* take several seconds (sometimes a good 10 - 40 seconds!!). Keep in mind that while it takes long, it definitely works!
 
 # Current Bugs
