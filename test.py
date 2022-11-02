@@ -6,11 +6,11 @@ import argparse
 ISON_WINDOWS = sys.platform == 'win32'
 WRITER_NAME = 'type' if ISON_WINDOWS else 'cat'
 parser = argparse.ArgumentParser(description='Runs Kattis problem through their test cases')
-parser.add_argument('--id', type=str, default='_NONE_', help='id of problem to fetch')
+parser.add_argument('qid', metavar='ID', type=str, help='id of problem to fetch')
 args = parser.parse_args()
-qid = args.id
+qid = args.qid
 
-if qid == '_NONE_':
+if qid == None:
     qid = input('Enter ID: ')
 
 PROBLEMS_PATH = './problems/'

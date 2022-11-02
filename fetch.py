@@ -22,9 +22,9 @@ except ImportError:
     sys.exit("You need UserAgent. run 'pip install fake-useragent'")
 
 parser = argparse.ArgumentParser(description='Fetches random Kattis Problems')
-parser.add_argument('--id', type=str, help='id of problem to fetch')
+parser.add_argument('qid', metavar='ID', type=str, help='id of problem to fetch')
 args = parser.parse_args()
-qid = args.id
+qid = args.qid
 
 if qid == None:
     qid = input('Enter ID: ')
