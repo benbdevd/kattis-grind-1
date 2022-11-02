@@ -25,7 +25,6 @@ parser = argparse.ArgumentParser(description='Fetches random Kattis Problems')
 parser.add_argument('--id', type=str, help='id of problem to fetch')
 args = parser.parse_args()
 qid = args.id
-hint = args.hint
 
 if qid == None:
     qid = input('Enter ID: ')
@@ -36,43 +35,21 @@ PROBLEM_PATH = PROBLEMS_PATH + qid
 if os.path.isdir(PROBLEM_PATH + qid):
     print('This problem already exists.')
     exit(1)
+pathlib.Path(PROBLEM_PATH).mkdir(parents=True, exist_ok=True)
+
 url = 'http://open.kattis.com/problems/' + qid
-sth = 'https://cpbook.net/methodstosolve?oj=kattis&topic=all&quality=all'
 usa = UserAgent()
 
 page = requests.get(url, headers={'User-Agent':str(usa.random)})
 soup = BeautifulSoup(page.content, 'html.parser')
 
-
-hinttype = ""
-hinttext = ""
-if hint:
-    hintpage = requests.get(sth, headers={'User-Agent': str(usa.random)})
-    pars = BeautifulSoup(hintpage.content, 'html.parser')
-    hintinp = pars.find_all('tr', attrs={'class': ['Kattis starred','Kattis nonstarred']})
-    for hinter in hintinp:
-        td = hinter.find_all('td')
-        if td[0].text == qid:
-            hinttype = td[2].text
-            hinttext = td[3].text
-            break
-
 tableinp = soup.find_all('table', attrs={'class': 'sample'})
-pathlib.Path(PROBLEM_PATH).mkdir(parents=True, exist_ok=True)
 
 htmlfile = soup
 for section in htmlfile.find_all('section', {'class': 'box clearfix main-content problem-sidebar'}): section.decompose()
 for div in htmlfile.find_all('div', {'class':['wrap', 'description','footer','problem-download','footer-powered col-md-8']}): div.decompose()
 for img in htmlfile.find_all('img'): img.decompose()
 for a in htmlfile.find_all('a'): a.decompose()
-
-if hint:
-    hinttype_p = htmlfile.new_tag('p')
-    hinttype_p.string = 'Type: %s'%hinttype
-    hinttext_p = htmlfile.new_tag('p')
-    hinttext_p.string = 'Hint: %s'%hinttext
-    htmlfile.html.append(hinttype_p)
-    htmlfile.html.append(hinttext_p)
 
 pathlib.Path(PROBLEM_PATH + '/' + qid + '.html').write_text(str(htmlfile))
 
