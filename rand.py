@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import os
 import sys
 import random
 import argparse
@@ -50,8 +49,8 @@ upper_bound = min(max(upper_bound, lower_bound), 10)
 lower_bound = max(min(lower_bound, tmp), 0)
 
 seenlist = []
-if os.path.isfile('./seen.txt'):
-    seenlist = [line.rstrip('\n') for line in open('./seen.txt')]
+with open('./seen.txt') as f:
+    seenlist = [line.rstrip('\n') for line in f]
 
 qlist = []
 done = False
@@ -97,9 +96,7 @@ while not done:
 random.shuffle(qlist)
 qlist = qlist[:n]
 
-print(f'Here are {n} Kattis problems: {qlist}')
+print(f'Here are {n} Kattis problems: {" ".join(qlist)}')
 
-for qid in qlist:
-    os.popen('python3 ./fetch.py ' + qid)
-
-print('The problems have been scraped and saved')
+with open('seen.txt', 'a+') as f:
+    f.write('\n'.join(qlist) + '\n')
